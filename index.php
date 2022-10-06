@@ -57,7 +57,7 @@
 									</div>
 		            </div>
 		          </form>
-		          <p class="text-center">Not a member ?<a href="signup.php"> Sign Up</a></p>
+		          <p class="text-center">Not a member ? <a href="signup.php"> Sign Up</a></p>
 		        </div>
 		      </div>
 				</div>
