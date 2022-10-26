@@ -591,19 +591,19 @@ if (isset($_POST['tolak'])){
 
 ?>
 
-<?php
-if (isset($_POST['terima'])){
-    $id = $_POST['id'];
-    $id_barang = $_POST['id_barang'];
-    include "../koneksi.php";
-    $sql = mysqli_query($conn,"UPDATE `lelang` SET `status` = 'terlelang' WHERE `lelang`.`id` ='$id' ");
-    $tutup = mysqli_query($conn,"UPDATE `barang` SET `status` = 'terlelang' WHERE `barang`.`id` ='$id_barang'");
-    if ($sql && $tutup) {
-        echo "<script>location.href='lelang.php'</script>";
+    <?php
+    if (isset($_POST['terima'])){
+        $id = $_POST['id'];
+        $id_barang = $_POST['id_barang'];
+        include "../koneksi.php";
+        $sql = mysqli_query($conn,"UPDATE `lelang` SET `status` = 'terlelang' WHERE `lelang`.`id` ='$id' ");
+        $tutup = mysqli_query($conn,"UPDATE `barang` SET `status` = 'terlelang' WHERE `barang`.`id` ='$id_barang'");
+        if ($sql && $tutup) {
+            echo "<script>location.href='lelang.php'</script>";
+        }
     }
-}
 
-?>
+    ?>
 
 <?php   
                                         include "../koneksi.php";
