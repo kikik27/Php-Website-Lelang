@@ -4,7 +4,11 @@ if (isset($_SESSION['admin']) == false) {
     header('Location: ../');
 }
 date_default_timezone_set("Asia/Jakarta");
-$tgl = date('m d y H:i:s');
+$tgl1 = date(' H:i:s');
+$tgl2 = date('m-d-y');
+
+$tgl= $tgl2. $tgl1;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,8 +176,8 @@ $tgl = date('m d y H:i:s');
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Data Tables Petugas   </h1>
-                    <p class="mb-4">Ini adalah page untuk menampilkan data petugas yang ada di dalam databse</p>
+                    <h1 class="h3 mb-2 text-gray-800">Data Tables Produk   </h1>
+                    <p class="mb-4">Ini adalah page untuk menampilkan data produk yang ada di dalam databse</p>
 
 
                     <!-- Modal Tambah -->
@@ -187,7 +191,7 @@ $tgl = date('m d y H:i:s');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="username">Nama Barang</label>
                                 <input type="text" name="nama" class="form-control" placeholder="Masukkan Nama barang" >
@@ -195,6 +199,15 @@ $tgl = date('m d y H:i:s');
                             <div class="form-group">
                                 <label for="tgl_daftar">Tanggal Daftar</label>
                                 <input type="txt" name="tgl" class="form-control" value="<?php echo $tgl?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="tgl_daftar">Durasi Tertutup</label>
+                                <select name="durasi" id="" class="form-control">
+                                    <option value="">Pilih Durasi Hari</option>
+                                    <option value="1">1 Hari</option>
+                                    <option value="3">3 Hari</option>
+                                    <option value="7">1 Minggu</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="harga">Harga</label>
@@ -234,7 +247,7 @@ $tgl = date('m d y H:i:s');
                                         <span class="text">Tambah Data</span>
                             </button>
                             
-                            <h6 class="m-0 font-weight-bold text-primary">Data Tables Petugas</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Tables produk</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -298,7 +311,7 @@ $tgl = date('m d y H:i:s');
                                                         $qry = mysqli_query($conn,"select * from barang where id='$id'");
                                                         $data = mysqli_fetch_array($qry);
                                                         $nama = $data['nama_barang'];
-                                                        $tgl = $data['tgl_daftar'];
+                                                        $tglny = $data['tgl_daftar'];
                                                         $harga = $data['harga_awal'];
                                                         $deskripsi = $data['deskripsi'];
 
@@ -311,7 +324,7 @@ $tgl = date('m d y H:i:s');
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tgl_daftar">Tanggal Daftar</label>
-                                                                <input type="txt" name="tgl" class="form-control" value="<?php echo $tgl?>">
+                                                                <input type="txt" name="tgl" class="form-control" value="<?php echo $tglny?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="harga">Harga</label>
@@ -502,8 +515,12 @@ $tgl = date('m d y H:i:s');
     $nama = $_POST['nama'];
     $harga = $_POST['harga'];
     $deskripsi = $_POST['deskripsi'];
+    $durasi = $_POST['durasi'];
+    $dl=date('m-d-y',mktime(0,0,0,date('m'),(date('d')+$durasi),date('Y')));
+    $exp = $dl.$tgl1;
+
     $foto = basename($_FILES["foto"]["name"]);
-    $target_dir = "../img/";
+    $target_dir = "../assets/img/";
     $target_file = $target_dir . basename($_FILES["foto"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION)); 
@@ -552,14 +569,14 @@ $tgl = date('m d y H:i:s');
                 
                 include "../koneksi.php";
                 
-                $sql = "INSERT INTO `barang` (`nama_barang`, `tgl_daftar`, `harga_awal`,`deskripsi`, `foto_barang`) VALUES ('$nama','$tgl','$harga', '$deskripsi','$foto')";
+                $sql = "INSERT INTO `barang` (`nama_barang`, `tgl_daftar`,`tgl_exp`, `harga_awal`,`deskripsi`, `foto_barang`) VALUES ('$nama','$tgl','$exp','$harga', '$deskripsi','$foto')";
                 
                 $insert=mysqli_query($conn, $sql);
 
                 if($insert) {
-                    echo "<script>alert('Sukses menambahkan buku');location.href='barang.php';</script>";
+                    echo "<script>alert('Sukses menambahkan produk');location.href='barang.php';</script>";
                 } else {
-                    echo "<script>alert('Gagal menambahkan buku');location.href='barang.php';</script>";
+                    echo "<script>alert('Gagal menambahkan produk');location.href='barang.php';</script>";
                 }
             } else {
                 echo "<script>alert('Error saat upload file foto');location.href='barang.php';</script>";
