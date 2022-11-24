@@ -96,7 +96,7 @@
 					if ($dt_login['level'] == "admin"){
 						session_start();
 						$_SESSION['id_petugas']= $dt_login['id'];
-						$_SESSION['username']= $dt_login['nama_petugas'];
+						$_SESSION['username']= $dt_login['username'];
 						$_SESSION['password']= $dt_login['password'];
 						$_SESSION['nama']=$dt_login['nama_petugas'];
 						$_SESSION['admin']=true;
@@ -105,7 +105,7 @@
 					} else {
 						session_start();
 						$_SESSION['id_petugas']= $dt_login['id'];
-						$_SESSION['username']= $dt_login['nama_petugas'];
+						$_SESSION['username']= $dt_login['username'];
 						$_SESSION['password']= $dt_login['password'];
 						$_SESSION['nama']=$dt_login['nama_petugas'];
 						$_SESSION['petugas']=true;

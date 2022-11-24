@@ -463,7 +463,7 @@ if (isset($_POST['logout'])){
 #edit password
 if (isset($_POST['ubahpassword'])){
     include "../koneksi.php";
-    $iduser = $_SESSION['id_petugas'];
+    $iduser = $_SESSION['id_user'];
     $pw = $_SESSION['password'];
     $pw1 = $_POST['old_password'];
     $pw2= $_POST['new_password'];
@@ -472,9 +472,9 @@ if (isset($_POST['ubahpassword'])){
     if ($pw2 == $pw3){
         if ($pw1 == $pw){
             
-        $ubahpassword = mysqli_query($conn,"update petugas set password='$pw3' where id = '$iduser'") ;
+        $ubahpassword = mysqli_query($conn,"update user set password='$pw3' where id = '$iduser'") ;
         if ($ubahpassword){
-            echo "<script>alert('Sukses Ubah Password, Silahkan Login Kembali');location.href='http://localhost/login/index.php';</script>";
+            echo "<script>alert('Sukses Ubah Password, Silahkan Login Kembali');location.href='../';</script>";
         }else{
             echo "<script>alert('Gagal Ubah Password');</script>";
         }
@@ -483,35 +483,7 @@ if (isset($_POST['ubahpassword'])){
             echo "<script>alert('Password Yang Anda Masukkan Salah');</script>";
         }
     }else{
-        echo "<script>alert('Masukkan Ulang Password Dengan Benar');location.href='http://localhost/login/admin</script>";
-    }
-}
-?>
-
-<?php
-#edit password
-if (isset($_POST['ubahpassword'])){
-    include "../koneksi.php";
-    $iduser = $_SESSION['id_petugas'];
-    $pw = $_SESSION['password'];
-    $pw1 = $_POST['old_password'];
-    $pw2= $_POST['new_password'];
-    $pw3 = $_POST['retype_password'];
-
-    if ($pw2 == $pw3){
-        if ($pw1 == $pw){
-            
-        $ubahpassword = mysqli_query($conn,"update petugas set password='$pw3' where id = '$iduser'") ;
-        if ($ubahpassword){
-            session_destroy();
-            echo "<script>alert('Sukses Ubah Password, Silahkan Login Kembali');location.href='http://localhost/login/index.php';</script>";
-        }else{
-            echo "<script>alert('Gagal Ubah Password');</script>";
-        }
-
-        }
-    }else{
-        echo "<script>alert('Password Yang Anda Masukkan Salah');</script>";
+        echo "<script>alert('Masukkan Ulang Password Dengan Benar');location.href='index.php'</script>";
     }
 }
 ?>
@@ -523,12 +495,12 @@ if (isset($_POST['ubahprofil'])){
     $iduser = $_SESSION['id_user'];
     $nama= $_POST['nama'];
     $username = $_POST['username'];
-    $tlp = $_POST['tlp'];
+    $tlp = $_POST['tlpn'];
 
     $ubahprofi = mysqli_query($conn,"update user set nama='$nama',username='$username',tlpn='$tlp' where id = '$iduser'") ;
     if ($ubahprofi){
         session_destroy();
-        echo "<script>alert('Sukses Ubah Profil , Silahkan Login Lagi');location.href='http://localhost/login/admin/';</script>";
+        echo "<script>alert('Sukses Ubah Profil , Silahkan Login Lagi');location.href='../';</script>";
     }else {
         echo "<script>alert('Gagal Ubah Profil');";
     }
